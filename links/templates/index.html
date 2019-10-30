@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Anonymous link shorter</title>
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<!-- meta tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#DCDCDC">
+		<!-- script -->
+		<script>
+			function short(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					// Typical action to be performed when the document is ready:
+					document.getElementById("link").innerHTML = "https://premo.serveo.net/" + xhttp.responseText;
+					document.getElementById("link").style.visibility = "visible"
+					document.getElementById("link").href = "https://premo.serveo.net/" + xhttp.responseText;
+					}
+				};
+				xhttp.open("GET", "/api/create/?q=" + document.getElementById("shurl").value, true);
+				xhttp.send();
+			}
+		</script>
+	</head>
+	<body style="width: 100vw;background-repeat: no-repeat;font-family: Montserrat, sans-serif;max-width: 500px;vertical-align: middle;margin-left: auto;margin-right: auto;"> 
+		<h1 style="text-align: center;">Short url</h1> 
+		<div> 
+			<input type="url" placeholder="Url to short" id="shurl" style="font-size: 20px; width: 70%;"> 
+			<input type="submit" value="Short!" onclick="short()" style="font-size: 20px;width: 28%;"> 
+		</div>
+		<br>
+		<div style="text-align: center; font-size: 20px; visibility: hidden;">
+			<a href="#" id="link">#</a>
+		</div>
+	</body>
+</html>
