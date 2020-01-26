@@ -52,9 +52,7 @@ def tg_bot(request):
         data = json.loads(request.body)
         if 'text' in data['message']:
             if data['message']['text'] == '/start':
-                requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Please send me link',
-                             proxies=dict(http='socks5://127.0.0.1:9050',
-                                          https='socks5://127.0.0.1:9050'))
+                requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Please send me link')
                 return HttpResponse('ok')
             else:
                 try:
@@ -63,13 +61,11 @@ def tg_bot(request):
                     obj.short = hex(obj.id).split('x')[-1]
                     obj.save()
                     
-                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short,
-                                 proxies=dict(http='socks5://127.0.0.1:9050',
-                                              https='socks5://127.0.0.1:9050'))
+                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short)
 
                     return HttpResponse('ok')
                 except:                           
-                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢',
-                                 proxies=dict(http='socks5://127.0.0.1:9050',
-                                              https='socks5://127.0.0.1:9050'))
+                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢')
                     return HttpResponse('ok')
+    else:
+        return HttpResponse('<img scr="https://http.cat/405">405 Method Not Allowed</img>', status=405, content_type='text/html')
