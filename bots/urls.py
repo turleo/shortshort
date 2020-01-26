@@ -4,5 +4,6 @@ from django.conf.urls import handler404
 from . import views
 
 urlpatterns = [
-	path('vk/', views.vk_bot, name='redirect'),
+	path('vk/', views.vk_bot, name='Vk'),
+	path('tg/', views.tg_bot, name='Telegram'),
 ]

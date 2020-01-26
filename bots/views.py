@@ -1,6 +1,7 @@
 import json
 import random
 
+import requests
 import vk
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -17,7 +18,6 @@ val = URLValidator()
 def vk_bot(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
         if data['secret'] == secret.secret_vk:
             if data['type'] == 'message_new':
                 try:
@@ -45,3 +45,31 @@ def vk_bot(request):
             return HttpResponse('<img scr="https://http.cat/403">403 Forbidden</img>', status=403)
     else:
         return HttpResponse('<img scr="https://http.cat/405">405 Method Not Allowed</img>', status=405, content_type='text/html')
+    
+
+def tg_bot(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        if 'text' in data['message']:
+            if data['message']['text'] == '/start':
+                requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Please send me link',
+                             proxies=dict(http='socks5://127.0.0.1:9050',
+                                          https='socks5://127.0.0.1:9050'))
+                return HttpResponse('ok')
+            else:
+                try:
+                    val(data['message']['text'])
+                    obj = Link.objects.create(long=data['message']['text'])
+                    obj.short = hex(obj.id).split('x')[-1]
+                    obj.save()
+                    
+                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short,
+                                 proxies=dict(http='socks5://127.0.0.1:9050',
+                                              https='socks5://127.0.0.1:9050'))
+
+                    return HttpResponse('ok')
+                except:                           
+                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢',
+                                 proxies=dict(http='socks5://127.0.0.1:9050',
+                                              https='socks5://127.0.0.1:9050'))
+                    return HttpResponse('ok')
