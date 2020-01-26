@@ -40,7 +40,7 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.43', '127.0.0.1', 'premo.serveo.net']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'a8e0414c.ngrok.io']
 
 
 # Application definition
