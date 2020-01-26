@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 import links.urls
+import bots.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(links.urls)),
+    path('bots/', include(bots.urls))
 ]
