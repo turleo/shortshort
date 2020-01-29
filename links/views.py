@@ -7,7 +7,11 @@ from .models import Link
 # Create your views here.
 
 def goto(request, id):
-	return redirect(get_object_or_404(Link, short=id).long, request)
+	try:
+		a = Link(short=id)
+		return redirect(a.long, request)
+	except:
+		return render(request, 'oops.html')
 
 
 def new_from_api(request):

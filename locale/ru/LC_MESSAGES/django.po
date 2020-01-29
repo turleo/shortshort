@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-29 16:57+1000\n"
+"POT-Creation-Date: 2020-01-29 17:40+1000\n"
 "PO-Revision-Date: 2020-01-29 16:57+1000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,3 +27,15 @@ msgstr "Ссылка для сокращения"
 #: .\links\templates\index.html:31
 msgid "Short!"
 msgstr "Сократить!"
+
+#: .\links\templates\oops.html:5
+msgid "Link had not found 😢"
+msgstr "Ссылка не найдена 😢"
+
+#: .\links\templates\oops.html:12
+msgid "🚫 Not Found"
+msgstr "🚫 Не найдено"
+
+#: .\links\templates\oops.html:15
+msgid "Sorry, you got wrong or corrupted link"
+msgstr "Простите, но кажется у вас не верная ссылка"
