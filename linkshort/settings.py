@@ -40,7 +40,7 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '2daa055b.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'shortshort.pythonanywhere.com']
 
 
 # Application definition
