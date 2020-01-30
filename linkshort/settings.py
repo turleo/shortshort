@@ -38,7 +38,7 @@ except FileNotFoundError:
 	print(colored("INFO:", "green", "on_grey", attrs=["bold"]), "Key saved!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'shortshort.pythonanywhere.com']
 

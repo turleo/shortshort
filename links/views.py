@@ -7,11 +7,7 @@ from .models import Link
 # Create your views here.
 
 def goto(request, id):
-	try:
-		a = Link(short=id)
-		return redirect(a.long, request)
-	except:
-		return render(request, 'oops.html')
+	return redirect(get_object_or_404(Link, short=id).long, request)
 
 
 def new_from_api(request):
@@ -22,5 +18,9 @@ def new_from_api(request):
 
 
 def index_file(request):
-	return render (request, 'index.html')
+	return render(request, 'index.html')
+
+
+def file_404(request, exception):
+	return render(request, 'oops.html', status=404)
 	
