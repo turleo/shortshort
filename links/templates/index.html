@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -34,5 +35,8 @@
 		<div style="text-align: center; font-size: 20px; visibility: hidden;">
 			<a href="#" id="link">#</a>
 		</div>
+		<a style="text-decoration: none; color: #000;" href="https://shortshort.pythonanywhere.com/4">&ensp;<img width="15px" height="15px"src="{% static "tg.svg" %}" alt="Telegram"></img>&ensp;{% trans "Telegram bot"%}</a><br>
+		<a href="https://shortshort.pythonanywhere.com/5" style="text-decoration: none; color: #000;"><img width="30px" height="30px" src="{% static "vk.svg" %}" alt="Telegram"></img>{% trans "VK bot"%}</a></br>
+		<a href="https://shortshort.pythonanywhere.com/2" style="text-decoration: none; color: #000;">&ensp; {% trans "Source code"%}</a>
 	</body>
 </html>
