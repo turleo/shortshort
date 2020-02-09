@@ -29,7 +29,7 @@ def vk_bot(request):
                     api = vk.API(session, v=5.103)
                     user_id = data['object']['message']['from_id']
                             
-                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message='https://' + request.get_host() + '/' + obj.short, random_id=str(random.randint(0, 999999999)))
+                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message='https://' + request.get_host() + '/' + obj.short, random_id=str(data['object']['message']['id']))
 
                     return HttpResponse('ok')
                 except:
@@ -37,7 +37,7 @@ def vk_bot(request):
                     api = vk.API(session, v=5.103)
                     user_id = data['object']['message']['from_id']
                             
-                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message="Это не URL", random_id=str(random.randint(0, 999999999)))
+                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message="Это не URL", random_id=str(data['object']['message']['id']))
                     return HttpResponse('ok')
             elif data['type'] == 'confirmation':
                 return HttpResponse(secret.conformatin_vk)
