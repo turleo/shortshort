@@ -5,14 +5,23 @@
 	<head>
 		<title>ShortShort</title>
 		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<script src="{% static 'short.js' %}"></script>
 		<!-- meta tags -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="theme-color" content="#FFF">
 	</head>
 	<body style="width: 100vw;background-repeat: no-repeat;font-family: Montserrat, sans-serif;max-width: 500px;vertical-align: middle;margin-left: auto;margin-right: auto;"> 
-		<h1 style="text-align: center;">ShortShort</h1> 
-		<a style="text-decoration: none; color: #000;" href="https://shortshort.pythonanywhere.com/4">&ensp;<img width="15px" height="15px"src="{% static "tg.svg" %}" alt="Telegram"></img>&ensp;{% trans "Telegram bot"%}</a><br>
-		<a href="https://shortshort.pythonanywhere.com/5" style="text-decoration: none; color: #000;"><img width="30px" height="30px" src="{% static "vk.svg" %}" alt="Telegram"></img>{% trans "VK bot"%}</a></br>
-		<a href="https://shortshort.pythonanywhere.com/2" style="text-decoration: none; color: #000;">&ensp; {% trans "Source code"%}</a>
+		<header><h1 style="text-align: center;">ShortShort</h1></header>
+		<label for="link">{% trans "Link"%}</label>
+		<input type="url" id="link" style="width: 90.72%">
+		<button onclick="short()" style="margin-left: 90.5%; margin-bottom: 8px">{% trans "Short"%}</button>
+		<div id="res" style="margin-bottom: 16px">
+			<a href="" id="out"></a>
+		</div>
+		<footer>
+			<a style="text-decoration: none; color: #000;" href="https://shortshort.pythonanywhere.com/4">&ensp;<img width="15px" height="15px" src="{% static "tg.svg" %}" alt="Telegram"></img>{% trans "Telegram bot"%}</a><br>
+			<a href="https://shortshort.pythonanywhere.com/5" style="text-decoration: none; color: #000;"><img width="30px" height="30px" src="{% static "vk.svg" %}" alt="Telegram"></img>{% trans "VK bot"%}</a></br>
+			<a href="https://shortshort.pythonanywhere.com/2" style="text-decoration: none; color: #000;">&ensp; {% trans "Source code"%}</a>
+		</footer>
 	</body>
 </html>

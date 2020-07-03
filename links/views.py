@@ -10,7 +10,8 @@ def goto(request, id):
 
 
 def new_from_api(request):
-    obj = Link.objects.create(long=request.GET.get('q', ''))
+    obj = Link.objects.create()
+    obj.long = request.GET.get('q', '')
     obj.short = hex(obj.id).split('x')[-1]
     obj.save()
     return HttpResponse(hex(obj.id).split('x')[-1])

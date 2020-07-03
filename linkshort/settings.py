@@ -18,30 +18,28 @@ from termcolor import colored
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 try:
-	SECRET_KEY = open(os.getcwd() + "/linkshort/key", "rt").read()
+    SECRET_KEY = open(os.getcwd() + "/linkshort/key", "rt").read()
 except FileNotFoundError:
-	print(colored("WARN:", "yellow", "on_grey", attrs=["bold"]), "Secret key not found!!")
-	alphabet = 'abcdefghijklmnopqrstvuwxyzABCDEFGHIGKLMNOPQRSTVUWXYZ1234567890-_+'
-	key = ''
-	for i in range(50):
-		key = key + alphabet[random.randint(0, 64)]
-	SECRET_KEY = key
-	print(colored("INFO:", "blue", "on_grey", attrs=["bold"]), "Generated new secert key")
-	f = open(os.getcwd() + "/linkshort/key", "a")
-	f.write(key)
-	f.close()
-	print(colored("INFO:", "green", "on_grey", attrs=["bold"]), "Key saved!")
+    print(colored("WARN:", "yellow", "on_grey", attrs=["bold"]), "Secret key not found!!")
+    alphabet = 'abcdefghijklmnopqrstvuwxyzABCDEFGHIGKLMNOPQRSTVUWXYZ1234567890-_+'
+    key = ''
+    for i in range(50):
+        key = key + alphabet[random.randint(0, 64)]
+    SECRET_KEY = key
+    print(colored("INFO:", "blue", "on_grey", attrs=["bold"]), "Generated new secert key")
+    f = open(os.getcwd() + "/linkshort/key", "a")
+    f.write(key)
+    f.close()
+    print(colored("INFO:", "green", "on_grey", attrs=["bold"]), "Key saved!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'shortshort.pythonanywhere.com']
-
 
 # Application definition
 
@@ -85,7 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'linkshort.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -95,7 +92,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -115,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -131,8 +126,10 @@ USE_TZ = True
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
