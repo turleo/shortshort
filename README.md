@@ -1,6 +1,6 @@
 # ShortShort
 ## Link shortener written on Django
-![Logo](https://assets.gitlab-static.net/uploads/-/system/project/avatar/15088694/0zWUzrxsw7k_1_.jpg?width=64)
+![Logo](static/logo.svg)
 
 [ShortShort Web](https://shortshort.pythonanywhere.com/)
 
