@@ -1,5 +1,5 @@
 function onload(){
-    if (!navigator.share) {
+    if (!navigator.canShare) {
         document.getElementById("share").style.display = "none";
     }
     if (!navigator.clipboard) {
@@ -25,7 +25,9 @@ function short(){
 
 
 function share(){
-    document.getElementById("out")
+    navigator.share({
+        text: document.getElementById("out").innerHTML
+    })
 }
 
 
