@@ -14,7 +14,7 @@ from . import secret
 
 val = URLValidator()
 
-# Create your views here.
+
 def vk_bot(request):
     if request.method == 'POST':
         data = json.loads(request.body)
