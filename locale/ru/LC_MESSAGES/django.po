@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-31 22:45+1000\n"
+"POT-Creation-Date: 2020-07-03 13:07+1000\n"
 "PO-Revision-Date: 2020-01-29 16:57+1000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,25 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: links/templates/index.html:14
+#: links/templates/index.html:21
+msgid "Link"
+msgstr "Ссылка"
+
+#: links/templates/index.html:23
+#, fuzzy
+#| msgid "Short!"
+msgid "Short"
+msgstr "Сократить!"
+
+#: links/templates/index.html:30
 msgid "Telegram bot"
 msgstr "Бот в Telegram"
 
-#: links/templates/index.html:15
+#: links/templates/index.html:31
 msgid "VK bot"
 msgstr "Бот ВКонтакте"
 
-#: links/templates/index.html:16
+#: links/templates/index.html:32
 msgid "Source code"
 msgstr "Исходный код"
 
@@ -46,6 +56,3 @@ msgstr "Простите, но кажется у вас не верная ссы
 
 #~ msgid "Url to short"
 #~ msgstr "Ссылка для сокращения"
-
-#~ msgid "Short!"
-#~ msgstr "Сократить!"
