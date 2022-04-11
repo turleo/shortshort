@@ -1,4 +1,4 @@
-django==3.2.7
+django==4.0.4
 termcolor==1.1.0
 requests==2.26.0
 vk==2.0.2
