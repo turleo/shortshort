@@ -11,36 +11,27 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import random
-import logging
+import dotenv
 
 from string import ascii_lowercase, digits
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Load variables from .env
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-try:
-    SECRET_KEY = open(os.getcwd() + "/linkshort/key", "rt").read()
-except FileNotFoundError:
-    logging.warn("Secret key not found!!")
-    alphabet = 'abcdefghijklmnopqrstvuwxyzABCDEFGHIGKLMNOPQRSTVUWXYZ1234567890-_+'
-    key = ''
-    for i in range(50):
-        key = key + alphabet[random.randint(0, 64)]
-    SECRET_KEY = key
-    logging.info("Generated new secert key")
-    f = open(os.getcwd() + "/linkshort/key", "a")
-    f.write(key)
-    f.close()
-    logging.info("Key saved!")
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'shortshort.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.environ.get('ALLOWED_HOST', 'shortshort.pythonanywhere.com')]
 
 # Application definition
 
@@ -138,4 +129,9 @@ STATICFILES_DIRS = [
 # List of symbols for short urls
 BASE_SYMBOLS = ascii_lowercase + digits[2:] + '.'  # symbols, used in short urls. 0 and 1 is removed for comfort
 BASE = len(BASE_SYMBOLS)
+
+SECRET_VK = os.environ.get('SECRET_VK')
+TOKEN_VK = os.environ.get('TOKEN_VK')
+CONFORMATON_VK = os.environ.get('CONFORMAION_VK')
+TOKEN_TG = os.environ.get('TOKEN_TG')
 
