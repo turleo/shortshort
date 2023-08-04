@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import random
-
-from termcolor import colored
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,17 +23,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
     SECRET_KEY = open(os.getcwd() + "/linkshort/key", "rt").read()
 except FileNotFoundError:
-    print(colored("WARN:", "yellow", "on_grey", attrs=["bold"]), "Secret key not found!!")
+    logging.warn("Secret key not found!!")
     alphabet = 'abcdefghijklmnopqrstvuwxyzABCDEFGHIGKLMNOPQRSTVUWXYZ1234567890-_+'
     key = ''
     for i in range(50):
         key = key + alphabet[random.randint(0, 64)]
     SECRET_KEY = key
-    print(colored("INFO:", "blue", "on_grey", attrs=["bold"]), "Generated new secert key")
+    logging.info("Generated new secert key")
     f = open(os.getcwd() + "/linkshort/key", "a")
     f.write(key)
     f.close()
-    print(colored("INFO:", "green", "on_grey", attrs=["bold"]), "Key saved!")
+    logging.info("Key saved!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
