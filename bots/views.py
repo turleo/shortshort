@@ -23,28 +23,27 @@ def vk_bot(request):
                 try:
                     val(data['object']['message']['text'])
                     obj = Link.objects.create(long=data['object']['message']['text'])
-                    obj.short = hex(obj.id).split('x')[-1]
                     obj.save()
                     session = vk.Session()
                     api = vk.API(session, v=5.103)
                     user_id = data['object']['message']['from_id']
                             
-                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message='https://' + request.get_host() + '/' + obj.short, random_id=str(data['object']['message']['id']))
+                    api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message='https://' + request.get_host() + '/' + obj.short(), random_id=str(data['object']['message']['id']))
 
-                    return HttpResponse('ok')
+                    return HttpResponse(b'ok')
                 except:
                     session = vk.Session()
                     api = vk.API(session, v=5.103)
                     user_id = data['object']['message']['from_id']
                             
                     api.messages.send(access_token=secret.token_vk, user_id=str(user_id), message="Это не URL", random_id=str(data['object']['message']['id']))
-                    return HttpResponse('ok')
+                    return HttpResponse(b'ok')
             elif data['type'] == 'confirmation':
-                return HttpResponse(secret.conformatin_vk)
+                return HttpResponse(bytes(secret.conformatin_vk, 'utf8'))
         else:
-            return HttpResponse('<img scr="https://http.cat/403">403 Forbidden</img>', status=403)
+            return HttpResponse(b'<img scr="https://http.cat/403" alt="403 Forbidden"/>', status=403, content_type='text/html')
     else:
-        return HttpResponse('<img scr="https://http.cat/405">405 Method Not Allowed</img>', status=405, content_type='text/html')
+        return HttpResponse(b'<img scr="https://http.cat/405" alt="405 Method Not Allowed"/>', status=405, content_type='text/html')
     
 
 def tg_bot(request):
@@ -53,19 +52,18 @@ def tg_bot(request):
         if 'text' in data['message']:
             if data['message']['text'] == '/start':
                 requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Please send me link')
-                return HttpResponse('ok')
+                return HttpResponse(b'ok')
             else:
                 try:
                     val(data['message']['text'])
                     obj = Link.objects.create(long=data['message']['text'])
-                    obj.short = hex(obj.id).split('x')[-1]
                     obj.save()
                     
-                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short)
+                    requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short())
 
-                    return HttpResponse('ok')
-                except:                           
+                    return HttpResponse(b'ok')
+                except:
                     requests.get('https://api.telegram.org/' + secret.token_tg + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢')
-                    return HttpResponse('ok')
+                    return HttpResponse(b'ok')
     else:
-        return HttpResponse('<img scr="https://http.cat/405">405 Method Not Allowed</img>', status=405, content_type='text/html')
+        return HttpResponse(b'<img scr="https://http.cat/405" alt="405 Method Not Allowed"/>', status=405, content_type='text/html')

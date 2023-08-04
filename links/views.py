@@ -1,20 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.conf import settings
 from django.http import HttpResponse
 
 from .models import Link
 
 
-def goto(request, id):
-    return redirect(get_object_or_404(Link, short=id).long, request)
+def goto(request, short: str):
+    pk = 0
+    for i, symbol in enumerate(short):
+        pk += settings.BASE_SYMBOLS.index(symbol) * (settings.BASE ** i)
+    link = get_object_or_404(Link, pk=pk)
+    return redirect(link.long, request)
 
 
 def new_from_api(request):
     obj = Link.objects.create()
     obj.long = request.GET.get('q', '')
-    obj.short = hex(obj.id).split('x')[-1]
     obj.save()
-    return HttpResponse(hex(obj.id).split('x')[-1])
+    return HttpResponse(bytes(obj.short(), 'utf8'))
 
 
 def index_file(request):

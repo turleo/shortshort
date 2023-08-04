@@ -14,6 +14,8 @@ import os
 import random
 import logging
 
+from string import ascii_lowercase, digits
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -132,3 +134,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+# List of symbols for short urls
+BASE_SYMBOLS = ascii_lowercase + digits[2:] + '.'  # symbols, used in short urls. 0 and 1 is removed for comfort
+BASE = len(BASE_SYMBOLS)
+
