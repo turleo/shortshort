@@ -1,12 +1,8 @@
 import json
-import random
 
 import requests
-import vk
-from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.conf import settings
 
 from links.models import Link
@@ -23,22 +19,19 @@ def vk_bot(request):
                     val(data['object']['message']['text'])
                     obj = Link.objects.create(long=data['object']['message']['text'])
                     obj.save()
-                    session = vk.Session()
-                    api = vk.API(session, v=5.103)
-                    user_id = data['object']['message']['from_id']
-                            
-                    api.messages.send(access_token=settings.SECRET_VK, user_id=str(user_id), message='https://' + request.get_host() + '/' + obj.short(), random_id=str(data['object']['message']['id']))
-
+                    requests.get(f"https://api.vk.com/method/messages.send?v=5.131&user_id={data['object']['message']['from_id']}&random_id={data['object']['message']['id']}" 
+                                     '&message=https://' + request.get_host() + '/' + obj.short(), headers={
+                                         'Authorization': f'Bearer {settings.TOKEN_VK}'
+                                         })
                     return HttpResponse(b'ok')
                 except:
-                    session = vk.Session()
-                    api = vk.API(session, v=5.103)
-                    user_id = data['object']['message']['from_id']
-                            
-                    api.messages.send(access_token=settings.TOKEN_VK, user_id=str(user_id), message="Это не URL", random_id=str(data['object']['message']['id']))
+                    requests.get(f"https://api.vk.com/method/messages.send?v=5.131&user_id={data['object']['message']['from_id']}&random_id={data['object']['message']['id']}" 
+                                 '&message=Отправьте URL', headers={
+                                         'Authorization': f'Bearer {settings.TOKEN_VK}'
+                                         })
                     return HttpResponse(b'ok')
             elif data['type'] == 'confirmation':
-                return HttpResponse(bytes(settings.CONFORMATON_VK, 'utf8'))
+                return HttpResponse(bytes(settings.CONFORMATION_VK, 'utf8'))
         else:
             return HttpResponse(b'<img src="https://http.cat/403" alt="403 Forbidden"/>', status=403, content_type='text/html')
     else:
@@ -58,11 +51,12 @@ def tg_bot(request):
                     obj = Link.objects.create(long=data['message']['text'])
                     obj.save()
                     
-                    requests.get('https://api.telegram.org/' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short())
+                    r = requests.get('https://api.telegram.org/bot' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=https://' + request.get_host() + '/' + obj.short())
+                    print(r.text)
 
                     return HttpResponse(b'ok')
                 except:
-                    requests.get('https://api.telegram.org/' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢')
+                    requests.get('https://api.telegram.org/bot' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢')
                     return HttpResponse(b'ok')
     else:
         return HttpResponse(b'<img src="https://http.cat/405" alt="405 Method Not Allowed"/>', status=405, content_type='text/html')

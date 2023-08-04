@@ -132,6 +132,6 @@ BASE = len(BASE_SYMBOLS)
 
 SECRET_VK = os.environ.get('SECRET_VK')
 TOKEN_VK = os.environ.get('TOKEN_VK')
-CONFORMATON_VK = os.environ.get('CONFORMAION_VK')
+CONFORMATION_VK = os.environ.get('CONFORMATION_VK')
 TOKEN_TG = os.environ.get('TOKEN_TG')
 
