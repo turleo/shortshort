@@ -1,8 +1,12 @@
+from django.core.validators import URLValidator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
 
 from .models import Link
+
+
+val = URLValidator()
 
 
 def goto(request, short: str):
@@ -14,6 +18,10 @@ def goto(request, short: str):
 
 
 def new_from_api(request):
+    try:
+        val(request.GET.get('q', ''))
+    except:
+        return HttpResponse(bytes('invalid link', 'utf8'), status=400)
     obj = Link.objects.create()
     obj.long = request.GET.get('q', '')
     obj.save()

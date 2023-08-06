@@ -64,7 +64,6 @@ def tg_bot(request):
                     requests.get(f'https://api.telegram.org/bot{settings.TOKEN_TG}/sendMessage?chat_id='
                                  f"{data['message']['from']['id']}&text=" + 
                                  translation.gettext('Please, send me valid link 🔗'))
-                    print(data['message']['from']['language_code'], translation.get_language())
                     translation.deactivate()
                     return HttpResponse(b'ok')
     else:
