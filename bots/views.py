@@ -4,6 +4,7 @@ import requests
 from django.core.validators import URLValidator
 from django.http import HttpResponse
 from django.conf import settings
+from django.utils import translation
 
 from links.models import Link
 
@@ -43,7 +44,10 @@ def tg_bot(request):
         data = json.loads(request.body)
         if 'text' in data['message']:
             if data['message']['text'] == '/start':
-                requests.get('https://api.telegram.org/' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Please send me link')
+                translation.activate(data['message']['from']['language_code'])
+                requests.get(f'https://api.telegram.org/bot{settings.TOKEN_TG}/sendMessage?'
+                f'chat_id={data["message"]["from"]["id"]}&text=' + 
+                translation.gettext("Send me link and I'll make it shorter ✂"))
                 return HttpResponse(b'ok')
             else:
                 try:
@@ -56,7 +60,12 @@ def tg_bot(request):
 
                     return HttpResponse(b'ok')
                 except:
-                    requests.get('https://api.telegram.org/bot' + settings.TOKEN_TG + '/sendMessage?chat_id=' + str(data['message']['from']['id']) + '&text=Looks lite this isn\'t valid URL 😢')
+                    translation.activate(data['message']['from']['language_code'])
+                    requests.get(f'https://api.telegram.org/bot{settings.TOKEN_TG}/sendMessage?chat_id='
+                                 f"{data['message']['from']['id']}&text=" + 
+                                 translation.gettext('Please, send me valid link 🔗'))
+                    print(data['message']['from']['language_code'], translation.get_language())
+                    translation.deactivate()
                     return HttpResponse(b'ok')
     else:
         return HttpResponse(b'<img src="https://http.cat/405" alt="405 Method Not Allowed"/>', status=405, content_type='text/html')
